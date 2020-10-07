@@ -39,3 +39,4 @@ class Human:
     #
     # def __init__(self, feature: int = 0):
     #     self.current_feature = feature
+

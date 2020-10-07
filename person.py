@@ -1,5 +1,6 @@
 import math
-import Human
+from Race.Human import Human
+
 
 class Person:
     """Класс персонажа.
@@ -26,7 +27,7 @@ class Person:
                  charisma:      int = 1,     # Харизма
                  mindfulness:   int = 1,     # Внимательность
                  volition:      int = 1,     # Воля
-                 race:          int = 1,     # Раса
+                 race_id:       int = 1,     # Раса
                  ):
         """Инициализируем атрибуты нового класса"""
         # Основные стартовые параметры
@@ -41,9 +42,12 @@ class Person:
         self.mindfulness = mindfulness      # Внимательность
         self.volition = volition            # Воля
 
-        # Выбор расы
-        if race == 1:
+        if race_id == 1:
             self.race = Human()
+        else:
+            self.race = Human()
+
+
 
         # Зависимые параметры
         # Защита
@@ -63,7 +67,7 @@ class Person:
         # Базовая
         self.reaction_base = self.agility + self.mindfulness
         # Бонус расы
-        self.reaction_bonus = 0
+        self.reaction_bonus = self.race.REACTION_BONUS
         # Эффект
         self.reaction_effect = 0
         # Общая
@@ -73,7 +77,7 @@ class Person:
         # Базовая
         self.vitality_base = self.strength + self.physique
         # Бонус расы
-        self.vitality_bonus = 0
+        self.vitality_bonus = self.race.VITALITY_BONUS
         # Эффект
         self.vitality_effect = 0
         # Общая
@@ -83,7 +87,7 @@ class Person:
         # Базовое
         self.consciousness_base = self.charisma + self.volition
         # Бонус расы
-        self.consciousness_bonus = 0
+        self.consciousness_bonus = self.race.CONSCIOUSNESS_BONUS
         # Эффект
         self.consciousness_effect = 0
         # Общее
@@ -138,7 +142,7 @@ class Person:
         # Базовое
         self.health_base = self.strength + self.physique * 2
         # Бонус расы
-        self.health_bonus = 0
+        self.health_bonus = self.race.HEALTH_BONUS
         # Общее
         self.health_general = self.health_base + self.health_bonus
         # Текущее
