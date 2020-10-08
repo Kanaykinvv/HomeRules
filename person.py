@@ -1,4 +1,7 @@
 import math
+
+from Race.Hobbit import Hobbit
+from Race.Dwarf import Dwarf
 from Race.Human import Human
 
 
@@ -44,10 +47,12 @@ class Person:
 
         if race_id == 1:
             self.race = Human()
+        elif race_id == 2:
+            self.race = Dwarf()
+        elif race_id == 3:
+            self.race = Hobbit()
         else:
             self.race = Human()
-
-
 
         # Зависимые параметры
         # Защита
