@@ -3,6 +3,8 @@ import math
 from Race.Hobbit import Hobbit
 from Race.Dwarf import Dwarf
 from Race.Human import Human
+from Race.Elf import Elf
+from Race.Minotaur import Minotaur
 
 
 class Person:
@@ -51,6 +53,10 @@ class Person:
             self.race = Dwarf()
         elif race_id == 3:
             self.race = Hobbit()
+        elif race_id == 4:
+            self.race = Elf()
+        elif race_id == 5:
+            self.race = Minotaur()
         else:
             self.race = Human()
 
@@ -62,7 +68,7 @@ class Person:
         self.protection_shield = 0
         # Эффект
         self.protection_effect = 0
-        # Прирост защиты от сытости
+        # Прирост защиты от сытости <-----------ИСПРАВИТЬ
         self.protection_add = 2
         # Общая
         self.protection_general = self.protection_armor + self.protection_shield + \
@@ -101,7 +107,7 @@ class Person:
         # Инициатива
         # Базовая
         self.initiative_base = math.floor((self.agility + self.mindfulness) / 2)
-        # Бонус расы
+        # Бонус расы <-----------ОБДУМАТЬ
         # self.initiative_bonus = 0
         # Эффект
         self.initiative_effect = 0
@@ -111,7 +117,7 @@ class Person:
         # Скорость
         # Базовая
         self.speed_base = math.floor(self.agility / 2)
-        # Бонус расы
+        # Бонус расы <-----------ОБДУМАТЬ
         # self.speed_bonus = 0
         # Доспех
         self.speed_armor = 0
@@ -136,7 +142,7 @@ class Person:
         self.energy_base = self.strength * 2 + self.physique
         # Эффект
         self.energy_effect = 0
-        # Коэффициент энергии от сытости
+        # Коэффициент энергии от сытости <-----------ИСПРАВИТЬ
         self.energy_max = 1.2
         # Общая
         self.energy_general = math.floor((self.energy_base + self.energy_effect) * self.energy_max)
@@ -217,5 +223,5 @@ class Person:
                      )
 
 # Тестирование класса
-my_pers = Person('Test_pers')
+my_pers = Person('Test_pers', race_id = 4)
 my_pers.print()
