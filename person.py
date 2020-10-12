@@ -1,10 +1,8 @@
 import math
 
-from Race.Hobbit import Hobbit
-from Race.Dwarf import Dwarf
-from Race.Human import Human
-from Race.Elf import Elf
-from Race.Minotaur import Minotaur
+from ObjectsOfGame.Races import Human, Dwarf, Hobbit, Elf, Minotaur
+from ObjectsOfGame.Experience import Experience
+
 
 
 class Person:
@@ -23,7 +21,7 @@ class Person:
 
     def __init__(self,
                  name,                       # Имя персонажа
-                 level:         int = 1,     # Уровень
+                 # level:         int = 1,     # Уровень
                  experience:    int = 0,     # Опыт
                  strength:      int = 1,     # Сила
                  physique:      int = 1,     # Телосложение
@@ -37,7 +35,7 @@ class Person:
         """Инициализируем атрибуты нового класса"""
         # Основные стартовые параметры
         self.name = name                    # Имя персонажа
-        self.level = level                  # Уровень
+        # self.level = level                  # Уровень
         self.experience = experience        # Опыт
         self.strength = strength            # Сила
         self.physique = physique            # Телосложение
@@ -68,7 +66,7 @@ class Person:
         self.protection_shield = 0
         # Эффект
         self.protection_effect = 0
-        # Прирост защиты от сытости <-----------ИСПРАВИТЬ
+        # Прирост защиты от сытости
         self.protection_add = 2
         # Общая
         self.protection_general = self.protection_armor + self.protection_shield + \
@@ -78,31 +76,31 @@ class Person:
         # Базовая
         self.reaction_base = self.agility + self.mindfulness
         # Бонус расы
-        self.reaction_bonus = self.race.REACTION_BONUS
+        self.race.REACTION_BONUS
         # Эффект
         self.reaction_effect = 0
         # Общая
-        self.reaction_general = self.reaction_base + self.reaction_bonus + self.reaction_effect
+        self.reaction_general = self.reaction_base + self.race.REACTION_BONUS + self.reaction_effect
 
         # Стойкость
         # Базовая
         self.vitality_base = self.strength + self.physique
         # Бонус расы
-        self.vitality_bonus = self.race.VITALITY_BONUS
+        self.race.VITALITY_BONUS
         # Эффект
         self.vitality_effect = 0
         # Общая
-        self.vitality_general = self.vitality_base + self.vitality_bonus + self.vitality_effect
+        self.vitality_general = self.vitality_base + self.race.VITALITY_BONUS + self.vitality_effect
 
         # Сознание
         # Базовое
         self.consciousness_base = self.charisma + self.volition
         # Бонус расы
-        self.consciousness_bonus = self.race.CONSCIOUSNESS_BONUS
+        self.race.CONSCIOUSNESS_BONUS
         # Эффект
         self.consciousness_effect = 0
         # Общее
-        self.consciousness_general = self.consciousness_base + self.consciousness_bonus + self.consciousness_effect
+        self.consciousness_general = self.consciousness_base + self.race.CONSCIOUSNESS_BONUS + self.consciousness_effect
 
         # Инициатива
         # Базовая
@@ -142,7 +140,7 @@ class Person:
         self.energy_base = self.strength * 2 + self.physique
         # Эффект
         self.energy_effect = 0
-        # Коэффициент энергии от сытости <-----------ИСПРАВИТЬ
+        # Коэффициент энергии от сытости
         self.energy_max = 1.2
         # Общая
         self.energy_general = math.floor((self.energy_base + self.energy_effect) * self.energy_max)
@@ -153,9 +151,9 @@ class Person:
         # Базовое
         self.health_base = self.strength + self.physique * 2
         # Бонус расы
-        self.health_bonus = self.race.HEALTH_BONUS
+        self.race.HEALTH_BONUS
         # Общее
-        self.health_general = self.health_base + self.health_bonus
+        self.health_general = self.health_base + self.race.HEALTH_BONUS
         # Текущее
         self.health_current = self.health_general
 
@@ -183,10 +181,17 @@ class Person:
         # Текущее количество лечений
         self.treatment_current = 0
 
+    def get_experience(self):
+       return self.experience
+
+    def add_experience(self, add_exp):
+        self.experience += self.experience + add_exp
+        pass
+
+
 
     def print(self):
         return print("Имя персонажа: " + self.name + "\n" +
-                     "Уровень : " + str(self.level) + "\n" +
                      "Опыт : " + str(self.experience) + "\n" +
                      "=======================" + "\n" +
                      "ХАРАКТЕРИСТИКИ" + "\n" +
