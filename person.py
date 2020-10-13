@@ -181,15 +181,24 @@ class Person:
         # Текущее количество лечений
         self.treatment_current = 0
 
+    # Получение текущего опыта
     def get_experience(self):
        return self.experience
 
+    # Увеличение текущего опыта
     def add_experience(self, add_exp):
         self.experience += self.experience + add_exp
         pass
 
+    # Получение текущего уровня относительно переданного опыта
+    def get_level(self, experience):
+        current_level = 1
+        for key, value in Experience.EXPERIENCE.items():
+            if experience >= value:
+                current_level = key
+        return current_level
 
-
+    # Печать класса
     def print(self):
         return print("Имя персонажа: " + self.name + "\n" +
                      "Опыт : " + str(self.experience) + "\n" +
@@ -229,4 +238,13 @@ class Person:
 
 # Тестирование класса
 my_pers = Person('Test_pers', race_id = 4)
-my_pers.print()
+# Тест печати класса
+# my_pers.print()
+
+# Тест методов
+# Тест def get_level(self, experience)
+print(my_pers.get_level(0))     # Lvl = 1
+print(my_pers.get_level(11))    # Lvl = 3
+print(my_pers.get_level(199))   # Lvl = 8
+print(my_pers.get_level(1000))  # Lvl = 20
+print(my_pers.get_level(35000)) # Lvl = 50
