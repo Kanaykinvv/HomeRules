@@ -21,8 +21,9 @@ class Person:
 
     def __init__(self,
                  name,                       # Имя персонажа
-                 # level:         int = 1,     # Уровень
+                 level:         int = 1,     # Уровень
                  experience:    int = 0,     # Опыт
+                 points:        int = 0,     # Очки развития
                  strength:      int = 1,     # Сила
                  physique:      int = 1,     # Телосложение
                  agility:       int = 1,     # Ловкость
@@ -35,8 +36,9 @@ class Person:
         """Инициализируем атрибуты нового класса"""
         # Основные стартовые параметры
         self.name = name                    # Имя персонажа
-        # self.level = level                  # Уровень
+        self.level = level                  # Уровень
         self.experience = experience        # Опыт
+        self.points = points                # Очки развития
         self.strength = strength            # Сила
         self.physique = physique            # Телосложение
         self.agility = agility              # Ловкость
@@ -181,15 +183,6 @@ class Person:
         # Текущее количество лечений
         self.treatment_current = 0
 
-    # Получение текущего опыта
-    def get_experience(self):
-       return self.experience
-
-    # Увеличение текущего опыта
-    def add_experience(self, add_exp):
-        self.experience += self.experience + add_exp
-        pass
-
     # Получение текущего уровня относительно переданного опыта
     def get_level(self, experience):
         current_level = 1
@@ -198,10 +191,25 @@ class Person:
                 current_level = key
         return current_level
 
+    # Получение текущего опыта
+    def get_experience(self):
+       return self.experience
+
+    # Увеличение текущего опыта
+    def add_experience(self, add_exp):
+        self.experience += self.experience + add_exp
+        new_level = self.get_level(self.experience)
+        if self.level < new_level:
+            self.points += (new_level - self.level)*3
+            self.level = new_level
+
+
     # Печать класса
     def print(self):
         return print("Имя персонажа: " + self.name + "\n" +
                      "Опыт : " + str(self.experience) + "\n" +
+                     "Уровень : " + str(self.level) + "\n" +
+                     "Очки развития : " + str(self.points) + "\n" +
                      "=======================" + "\n" +
                      "ХАРАКТЕРИСТИКИ" + "\n" +
                      "=======================" + "\n" +
@@ -239,7 +247,7 @@ class Person:
 # Тестирование класса
 my_pers = Person('Test_pers', race_id = 4)
 # Тест печати класса
-# my_pers.print()
+my_pers.print()
 
 # Тест методов
 # Тест def get_level(self, experience)
