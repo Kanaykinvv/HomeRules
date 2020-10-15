@@ -19,6 +19,7 @@ class Person:
     volition        - Воля
     """
 
+    # Инициализация класса
     def __init__(self,
                  name,                       # Имя персонажа
                  level:         int = 1,     # Уровень
@@ -185,26 +186,28 @@ class Person:
 
     # Получение текущего уровня относительно переданного опыта
     def get_level(self, experience):
-        current_level = 1
-        for key, value in Experience.EXPERIENCE.items():
-            if experience >= value:
-                current_level = key
-        return current_level
+        current_level = 1                                       # Локальная переменная для перебора уровня
+        for key, value in Experience.EXPERIENCE.items():        # Перебор таблицы опыта
+            if experience >= value:                             # Проверка заданного значения опыта с табличным
+                current_level = key                             # Присвоение соответствующего значения уровня
+            else:                                               # Если заданное значение меньше табличного
+                break                                           # Прекращается оставшийся проход всего цикла
+        return current_level                                    # Возврат полученного значения уровня
 
     # Получение текущего опыта
     def get_experience(self):
-       return self.experience
+       return self.experience                                   # Выдача текущего уровня
 
     # Увеличение текущего опыта
     def add_experience(self, add_exp):
-        self.experience += self.experience + add_exp
-        new_level = self.get_level(self.experience)
-        if self.level < new_level:
-            self.points += (new_level - self.level)*3
-            self.level = new_level
+        self.experience += self.experience + add_exp            # Увеличение текущего опыта
+        new_level = self.get_level(self.experience)             # Получение уровня относительно увеличенного пыта
+        if self.level < new_level:                              # Сравнение полученного уровня с текущим
+            self.points += (new_level - self.level)*3           # Увеличение очков прокачки за увеличение уровня
+            self.level = new_level                              # Установка нового значения уровня
 
 
-    # Печать класса
+    # Тестовая печать класса
     def print(self):
         return print("Имя персонажа: " + self.name + "\n" +
                      "Опыт : " + str(self.experience) + "\n" +
