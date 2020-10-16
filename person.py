@@ -196,7 +196,7 @@ class Person:
 
     # Получение текущего опыта
     def get_experience(self):
-       return self.experience                                   # Выдача текущего уровня
+       return self.experience                                   # Выдача текущего опыта
 
     # Увеличение текущего опыта
     def add_experience(self, add_exp):
@@ -206,6 +206,9 @@ class Person:
             self.points += (new_level - self.level)*3           # Увеличение очков прокачки за увеличение уровня
             self.level = new_level                              # Установка нового значения уровня
 
+    # Обновление всех зависимых значений персонажа
+    def refresh_stat(self):
+        pass
 
     # Тестовая печать класса
     def print(self):
