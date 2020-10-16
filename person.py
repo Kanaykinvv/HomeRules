@@ -208,7 +208,65 @@ class Person:
 
     # Обновление всех зависимых значений персонажа
     def refresh_stat(self):
-        pass
+        # Защита (общая)
+        self.protection_general = self.protection_armor + self.protection_shield + \
+                                  self.protection_effect + self.protection_add
+
+        # Реакция
+        # Базовая
+        self.reaction_base = self.agility + self.mindfulness
+        # Общая
+        self.reaction_general = self.reaction_base + self.race.REACTION_BONUS + self.reaction_effect
+
+        # Стойкость
+        # Базовая
+        self.vitality_base = self.strength + self.physique
+        # Общая
+        self.vitality_general = self.vitality_base + self.race.VITALITY_BONUS + self.vitality_effect
+
+        # Сознание
+        # Базовое
+        self.consciousness_base = self.charisma + self.volition
+        # Общее
+        self.consciousness_general = self.consciousness_base + self.race.CONSCIOUSNESS_BONUS + self.consciousness_effect
+
+        # Инициатива
+        # Базовая
+        self.initiative_base = math.floor((self.agility + self.mindfulness) / 2)
+        # Общая
+        self.initiative_general = self.initiative_base + self.initiative_effect
+
+        # Скорость
+        # Базовая
+        self.speed_base = math.floor(self.agility / 2)
+        # Общая
+        self.speed_general = 1 if (self.speed_base + self.speed_armor + self.speed_effect) < 1 \
+            else (self.speed_base + self.speed_armor + self.speed_effect)
+
+        # Сытость
+        # Базовая
+        self.satiety_base = (self.strength + self.physique) * 2
+        # Общая
+        self.satiety_general = self.satiety_base + self.satiety_effect
+
+        # Энергия
+        # Базовая
+        self.energy_base = self.strength * 2 + self.physique
+        # Общая
+        self.energy_general = math.floor((self.energy_base + self.energy_effect) * self.energy_max)
+
+        # Здоровье
+        # Базовое
+        self.health_base = self.strength + self.physique * 2
+        # Общее
+        self.health_general = self.health_base + self.race.HEALTH_BONUS
+
+        # Ранение
+        # Базовое
+        self.injury_base = math.floor(self.health_general / 2)
+        # Общее
+        self.injury_general = self.injury_base + self.injury_effect
+
 
     # Тестовая печать класса
     def print(self):
