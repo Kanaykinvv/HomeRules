@@ -194,18 +194,6 @@ class Person:
                 break                                           # Прекращается оставшийся проход всего цикла
         return current_level                                    # Возврат полученного значения уровня
 
-    # Получение текущего опыта
-    def get_experience(self):
-       return self.experience                                   # Выдача текущего опыта
-
-    # Увеличение текущего опыта
-    def add_experience(self, add_exp):
-        self.experience += self.experience + add_exp            # Увеличение текущего опыта
-        new_level = self.get_level(self.experience)             # Получение уровня относительно увеличенного пыта
-        if self.level < new_level:                              # Сравнение полученного уровня с текущим
-            self.points += (new_level - self.level)*3           # Увеличение очков прокачки за увеличение уровня
-            self.level = new_level                              # Установка нового значения уровня
-
     # Обновление всех зависимых значений персонажа
     def refresh_stat(self):
         # Защита (общая)
@@ -267,6 +255,56 @@ class Person:
         # Общее
         self.injury_general = self.injury_base + self.injury_effect
 
+    # Получение текущего опыта
+    def get_experience(self):
+       return self.experience                                   # Выдача текущего опыта
+
+    # Увеличение текущего опыта
+    def add_experience(self, add_exp):
+        self.experience += add_exp                              # Увеличение текущего опыта
+        new_level = self.get_level(self.experience)             # Получение уровня относительно увеличенного пыта
+        if self.level < new_level:                              # Сравнение полученного уровня с текущим
+            self.points += (new_level - self.level)*3           # Увеличение очков прокачки за увеличение уровня
+            self.level = new_level                              # Установка нового значения уровня
+
+    # Увеличение текущих очков развития
+    def add_points(self, points):
+        self.points += points
+
+    # Увеличение Силы
+    def add_strength(self, strength):
+        self.strength += strength
+        self.refresh_stat()
+
+    # Увеличение Телосложения
+    def add_physique(self, physique):
+        self.physique += physique
+        self.refresh_stat()
+
+    # Увеличение Ловкости
+    def add_agility(self, agility):
+        self.agility += agility
+        self.refresh_stat()
+
+    # Увеличение Интеллекта
+    def add_intelligence(self, intelligence):
+        self.intelligence += intelligence
+        self.refresh_stat()
+
+    # Увеличение Внимательности
+    def add_mindfulness(self, mindfulness):
+        self.mindfulness += mindfulness
+        self.refresh_stat()
+
+    # Увеличение Воли
+    def add_volition(self, volition):
+        self.volition += volition
+        self.refresh_stat()
+
+    # Увеличение Харизмы
+    def add_charisma(self, charisma):
+        self.charisma += charisma
+        self.refresh_stat()
 
     # Тестовая печать класса
     def print(self):
@@ -287,10 +325,23 @@ class Person:
                      "=======================" + "\n" +
                      "СОПРОТИВЛЕНИЯ" + "\n" +
                      "=======================" + "\n" +
-                     "Защита: " + str(self.protection_general) + "\n" +
-                     "Реакция: " + str(self.reaction_general) + "\n" +
-                     "Стойкость: " + str(self.vitality_general) + "\n" +
-                     "Сознание: " + str(self.consciousness_general) + "\n" +
+                     "Защита: " + str(self.protection_general) +
+                     " [Доспех: " + str(self.protection_armor) +
+                     " | Щит: " + str(self.protection_shield) +
+                     " | Эффект: " + str(self.protection_effect) +
+                     " | Сытость: " + str(self.protection_add) + "]\n" +
+                     "Реакция: " + str(self.reaction_general) +
+                     " [Базовая: " + str(self.reaction_base) +
+                     " | Бонус расы: " + str(self.race.REACTION_BONUS) +
+                     " | Эффект: " + str(self.reaction_effect) + "]\n" +
+                     "Стойкость: " + str(self.vitality_general) +
+                     " [Базовая: " + str(self.vitality_base) +
+                     " | Бонус расы: " + str(self.race.VITALITY_BONUS) +
+                     " | Эффект: " + str(self.vitality_effect) + "]\n" +
+                     "Сознание: " + str(self.consciousness_general) +
+                     " [Базовая: " + str(self.consciousness_base) +
+                     " | Бонус расы: " + str(self.race.CONSCIOUSNESS_BONUS) +
+                     " | Эффект: " + str(self.consciousness_effect) + "]\n" +
                      "=======================" + "\n" +
                      "ДЕЙСТВИЯ" + "\n" +
                      "=======================" + "\n" +
