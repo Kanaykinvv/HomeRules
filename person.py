@@ -22,8 +22,6 @@ class Person:
     # Инициализация класса
     def __init__(self,
                  name,                       # Имя персонажа
-                 level:         int = 1,     # Уровень
-                 experience:    int = 0,     # Опыт
                  points:        int = 0,     # Очки развития
                  strength:      int = 1,     # Сила
                  physique:      int = 1,     # Телосложение
@@ -37,8 +35,8 @@ class Person:
         """Инициализируем атрибуты нового класса"""
         # Основные стартовые параметры
         self.name = name                    # Имя персонажа
-        self.level = level                  # Уровень
-        self.experience = experience        # Опыт
+        self.level = 1                      # Уровень
+        self.experience = 0                  # Опыт
         self.points = points                # Очки развития
         self.strength = strength            # Сила
         self.physique = physique            # Телосложение
@@ -71,9 +69,11 @@ class Person:
         self.protection_effect = 0
         # Прирост защиты от сытости
         self.protection_add = 2
+        # Прирост защиты от уровня персонажа
+        self.protection_levelpers = 0 # <------------------------------------------
         # Общая
         self.protection_general = self.protection_armor + self.protection_shield + \
-                                  self.protection_effect + self.protection_add
+                                  self.protection_effect + self.protection_add + self.protection_levelpers
 
         # Реакция
         # Базовая
@@ -198,7 +198,7 @@ class Person:
     def refresh_stat(self):
         # Защита (общая)
         self.protection_general = self.protection_armor + self.protection_shield + \
-                                  self.protection_effect + self.protection_add
+                                  self.protection_effect + self.protection_add + self.protection_levelpers
 
         # Реакция
         # Базовая
@@ -291,6 +291,11 @@ class Person:
         self.intelligence += intelligence
         self.refresh_stat()
 
+    # Увеличение Харизмы
+    def add_charisma(self, charisma):
+        self.charisma += charisma
+        self.refresh_stat()
+
     # Увеличение Внимательности
     def add_mindfulness(self, mindfulness):
         self.mindfulness += mindfulness
@@ -299,11 +304,6 @@ class Person:
     # Увеличение Воли
     def add_volition(self, volition):
         self.volition += volition
-        self.refresh_stat()
-
-    # Увеличение Харизмы
-    def add_charisma(self, charisma):
-        self.charisma += charisma
         self.refresh_stat()
 
     # Тестовая печать класса
@@ -328,6 +328,7 @@ class Person:
                      "Защита: " + str(self.protection_general) +
                      " [Доспех: " + str(self.protection_armor) +
                      " | Щит: " + str(self.protection_shield) +
+                     " | Уровень: " + str(self.protection_levelpers) +
                      " | Эффект: " + str(self.protection_effect) +
                      " | Сытость: " + str(self.protection_add) + "]\n" +
                      "Реакция: " + str(self.reaction_general) +
@@ -360,7 +361,7 @@ class Person:
                      )
 
 # Тестирование класса
-my_pers = Person('Test_pers', race_id = 4)
+my_pers = Person('Test_pers', race_id = 1)
 # Тест печати класса
 my_pers.print()
 
