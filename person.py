@@ -36,7 +36,7 @@ class Person:
         # Основные стартовые параметры
         self.name = name                    # Имя персонажа
         self.level = 1                      # Уровень
-        self.experience = 0                  # Опыт
+        self.experience = 0                 # Опыт
         self.points = points                # Очки развития
         self.strength = strength            # Сила
         self.physique = physique            # Телосложение
@@ -70,7 +70,7 @@ class Person:
         # Прирост защиты от сытости
         self.protection_add = 2
         # Прирост защиты от уровня персонажа
-        self.protection_levelpers = 0 # <------------------------------------------
+        self.protection_levelpers = 0
         # Общая
         self.protection_general = self.protection_armor + self.protection_shield + \
                                   self.protection_effect + self.protection_add + self.protection_levelpers
@@ -196,6 +196,8 @@ class Person:
 
     # Обновление всех зависимых значений персонажа
     def refresh_stat(self):
+        # Прирост защиты от уровня персонажа
+        self.protection_levelpers = math.floor(self.level / 2)
         # Защита (общая)
         self.protection_general = self.protection_armor + self.protection_shield + \
                                   self.protection_effect + self.protection_add + self.protection_levelpers
@@ -272,39 +274,53 @@ class Person:
         self.points += points
 
     # Увеличение Силы
-    def add_strength(self, strength):
-        self.strength += strength
-        self.refresh_stat()
+    def up_strength(self):
+        if self.points > 0:
+            self.strength += 1
+            self.points -= 1
+            self.refresh_stat()
 
     # Увеличение Телосложения
-    def add_physique(self, physique):
-        self.physique += physique
-        self.refresh_stat()
+    def up_physique(self):
+        if self.points > 0:
+            self.physique += 1
+            self.points -= 1
+            self.refresh_stat()
 
     # Увеличение Ловкости
-    def add_agility(self, agility):
-        self.agility += agility
-        self.refresh_stat()
+    def up_agility(self):
+        if self.points > 0:
+            self.agility += 1
+            self.points -= 1
+            self.refresh_stat()
 
     # Увеличение Интеллекта
-    def add_intelligence(self, intelligence):
-        self.intelligence += intelligence
-        self.refresh_stat()
+    def up_intelligence(self):
+        if self.points > 0:
+            self.intelligence += 1
+            self.points -= 1
+            self.refresh_stat()
 
     # Увеличение Харизмы
-    def add_charisma(self, charisma):
-        self.charisma += charisma
-        self.refresh_stat()
+    def up_charisma(self):
+        if self.points > 0:
+            self.charisma += 1
+            self.points -= 1
+            self.refresh_stat()
 
     # Увеличение Внимательности
-    def add_mindfulness(self, mindfulness):
-        self.mindfulness += mindfulness
-        self.refresh_stat()
+    def up_mindfulness(self):
+        if self.points > 0:
+            self.mindfulness += 1
+            self.points -= 1
+            self.refresh_stat()
 
     # Увеличение Воли
-    def add_volition(self, volition):
-        self.volition += volition
-        self.refresh_stat()
+    def up_volition(self):
+        if self.points > 0:
+            self.volition += 1
+            self.points -= 1
+            self.refresh_stat()
 
     # Тестовая печать класса
     def print(self):
@@ -360,15 +376,24 @@ class Person:
                      "Количество лечений: " + str(self.treatment_current) + " из " + str(self.treatment_max) + "\n"
                      )
 
+
+
+
 # Тестирование класса
 my_pers = Person('Test_pers', race_id = 1)
 # Тест печати класса
 my_pers.print()
+print("=============================")
+print("Повышение")
+print("=============================")
+my_pers.add_experience(100)
+my_pers.up_agility()
+my_pers.print()
 
 # Тест методов
 # Тест def get_level(self, experience)
-print(my_pers.get_level(0))     # Lvl = 1
-print(my_pers.get_level(11))    # Lvl = 3
-print(my_pers.get_level(199))   # Lvl = 8
-print(my_pers.get_level(1000))  # Lvl = 20
-print(my_pers.get_level(35000)) # Lvl = 50
+# print(my_pers.get_level(0))     # Lvl = 1
+# print(my_pers.get_level(11))    # Lvl = 3
+# print(my_pers.get_level(199))   # Lvl = 8
+# print(my_pers.get_level(1000))  # Lvl = 20
+# print(my_pers.get_level(35000)) # Lvl = 50
