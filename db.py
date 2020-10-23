@@ -26,5 +26,9 @@ other_user = User(name="Иван", fullname="Иванов")
 session.add(other_user)
 session.commit()
 
+other_user = User(name="Сергей", fullname="Светлый")
+session.add(other_user)
+session.commit()
+
 other_user.fullname = "Петр"
 session.commit()
