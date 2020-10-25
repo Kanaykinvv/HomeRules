@@ -32,3 +32,11 @@ session.commit()
 
 other_user.fullname = "Петр"
 session.commit()
+
+#==================================
+
+class Player(base):
+    __tablename__ = 'players'
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    fullname = Column(String)
