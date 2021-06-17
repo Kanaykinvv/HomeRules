@@ -5,7 +5,7 @@ from ObjectsOfGame.Experience import Experience
 
 
 
-class Person:
+class Avatar:
     """Класс персонажа.
     name            - Имя персонажа
     level           - Уровень
@@ -184,18 +184,17 @@ class Person:
         # Текущее количество лечений
         self.treatment_current = 0
 
-    # Получение текущего уровня относительно переданного опыта
-    def get_level(self, experience):
-        current_level = 1                                       # Локальная переменная для перебора уровня
-        for key, value in Experience.EXPERIENCE.items():        # Перебор таблицы опыта
-            if experience >= value:                             # Проверка заданного значения опыта с табличным
-                current_level = key                             # Присвоение соответствующего значения уровня
-            else:                                               # Если заданное значение меньше табличного
-                break                                           # Прекращается оставшийся проход всего цикла
-        return current_level                                    # Возврат полученного значения уровня
+    def create_avatar(self):
+        pass
+
+    def load_avatar(self):
+        pass
+
+    def save_avatar(self):
+        pass
 
     # Обновление всех зависимых значений персонажа
-    def refresh_stat(self):
+    def refresh(self):
         # Прирост защиты от уровня персонажа
         self.protection_levelpers = math.floor(self.level / 2)
         # Защита (общая)
@@ -257,6 +256,65 @@ class Person:
         # Общее
         self.injury_general = self.injury_base + self.injury_effect
 
+    # Увеличение Силы
+    def up_strength(self):
+        if self.points > 0:
+            self.strength += 1
+            self.points -= 1
+            self.refresh()
+
+    # Увеличение Телосложения
+    def up_physique(self):
+        if self.points > 0:
+            self.physique += 1
+            self.points -= 1
+            self.refresh()
+
+    # Увеличение Ловкости
+    def up_agility(self):
+        if self.points > 0:
+            self.agility += 1
+            self.points -= 1
+            self.refresh()
+
+    # Увеличение Интеллекта
+    def up_intelligence(self):
+        if self.points > 0:
+            self.intelligence += 1
+            self.points -= 1
+            self.refresh()
+
+    # Увеличение Харизмы
+    def up_charisma(self):
+        if self.points > 0:
+            self.charisma += 1
+            self.points -= 1
+            self.refresh()
+
+    # Увеличение Внимательности
+    def up_mindfulness(self):
+        if self.points > 0:
+            self.mindfulness += 1
+            self.points -= 1
+            self.refresh()
+
+    # Увеличение Воли
+    def up_volition(self):
+        if self.points > 0:
+            self.volition += 1
+            self.points -= 1
+            self.refresh()
+
+    # Получение текущего уровня относительно переданного опыта
+    def get_level(self, experience):
+        current_level = 1                                       # Локальная переменная для перебора уровня
+        for key, value in Experience.EXPERIENCE.items():        # Перебор таблицы опыта
+            if experience >= value:                             # Проверка заданного значения опыта с табличным
+                current_level = key                             # Присвоение соответствующего значения уровня
+            else:                                               # Если заданное значение меньше табличного
+                break                                           # Прекращается оставшийся проход всего цикла
+        return current_level                                    # Возврат полученного значения уровня
+
     # Получение текущего опыта
     def get_experience(self):
        return self.experience                                   # Выдача текущего опыта
@@ -272,132 +330,3 @@ class Person:
     # Увеличение текущих очков развития
     def add_points(self, points):
         self.points += points
-
-    # Увеличение Силы
-    def up_strength(self):
-        if self.points > 0:
-            self.strength += 1
-            self.points -= 1
-            self.refresh_stat()
-
-    # Увеличение Телосложения
-    def up_physique(self):
-        if self.points > 0:
-            self.physique += 1
-            self.points -= 1
-            self.refresh_stat()
-
-    # Увеличение Ловкости
-    def up_agility(self):
-        if self.points > 0:
-            self.agility += 1
-            self.points -= 1
-            self.refresh_stat()
-
-    # Увеличение Интеллекта
-    def up_intelligence(self):
-        if self.points > 0:
-            self.intelligence += 1
-            self.points -= 1
-            self.refresh_stat()
-
-    # Увеличение Харизмы
-    def up_charisma(self):
-        if self.points > 0:
-            self.charisma += 1
-            self.points -= 1
-            self.refresh_stat()
-
-    # Увеличение Внимательности
-    def up_mindfulness(self):
-        if self.points > 0:
-            self.mindfulness += 1
-            self.points -= 1
-            self.refresh_stat()
-
-    # Увеличение Воли
-    def up_volition(self):
-        if self.points > 0:
-            self.volition += 1
-            self.points -= 1
-            self.refresh_stat()
-
-    # Тестовая печать класса
-    def print(self):
-        return print("Имя персонажа: " + self.name + "\n" +
-                     "Опыт : " + str(self.experience) + "\n" +
-                     "Уровень : " + str(self.level) + "\n" +
-                     "Очки развития : " + str(self.points) + "\n" +
-                     "=======================" + "\n" +
-                     "ХАРАКТЕРИСТИКИ" + "\n" +
-                     "=======================" + "\n" +
-                     "Сила: " + str(self.strength) + "\n" +
-                     "Телосложение: " + str(self.physique) + "\n" +
-                     "Ловкость: " + str(self.agility) + "\n" +
-                     "Интеллект: " + str(self.intelligence) + "\n" +
-                     "Харизма: " + str(self.charisma) + "\n" +
-                     "Внимательность: " + str(self.mindfulness) + "\n" +
-                     "Воля: " + str(self.volition) + "\n" +
-                     "=======================" + "\n" +
-                     "СОПРОТИВЛЕНИЯ" + "\n" +
-                     "=======================" + "\n" +
-                     "Защита: " + str(self.protection_general) +
-                     " [Доспех: " + str(self.protection_armor) +
-                     " | Щит: " + str(self.protection_shield) +
-                     " | Уровень: " + str(self.protection_levelpers) +
-                     " | Эффект: " + str(self.protection_effect) +
-                     " | Сытость: " + str(self.protection_add) + "]\n" +
-                     "Реакция: " + str(self.reaction_general) +
-                     " [Базовая: " + str(self.reaction_base) +
-                     " | Бонус расы: " + str(self.race.REACTION_BONUS) +
-                     " | Эффект: " + str(self.reaction_effect) + "]\n" +
-                     "Стойкость: " + str(self.vitality_general) +
-                     " [Базовая: " + str(self.vitality_base) +
-                     " | Бонус расы: " + str(self.race.VITALITY_BONUS) +
-                     " | Эффект: " + str(self.vitality_effect) + "]\n" +
-                     "Сознание: " + str(self.consciousness_general) +
-                     " [Базовая: " + str(self.consciousness_base) +
-                     " | Бонус расы: " + str(self.race.CONSCIOUSNESS_BONUS) +
-                     " | Эффект: " + str(self.consciousness_effect) + "]\n" +
-                     "=======================" + "\n" +
-                     "ДЕЙСТВИЯ" + "\n" +
-                     "=======================" + "\n" +
-                     "Инициатива: " + str(self.initiative_general) + "\n" +
-                     "Скорость: " + str(self.speed_general) + "\n" +
-                     "Сытость: " + str(self.satiety_current) + " из " + str(self.satiety_general) + "\n" +
-                     "Энергия: " + str(self.energy_current) + " из " + str(self.energy_general) + "\n" +
-                     "=======================" + "\n" +
-                     "ЗДОРОВЬЕ" + "\n" +
-                     "=======================" + "\n" +
-                     "Здоровье: " + str(self.health_current ) + " из " + str(self.health_general) + "\n" +
-                     "Раненый: " + str(self.injury_general) + "\n" +
-                     "Спасбросок: " + str(self.savethrow_current) + " из " + str(self.savethrow_max) + "\n" +
-                     "Лечение: " + str(self.treatment_modifier) + " + " + str(self.treatment_effect) + "\n" +
-                     "Количество лечений: " + str(self.treatment_current) + " из " + str(self.treatment_max) + "\n"
-                     )
-
-    def create_person(self):
-        pass
-
-    def load_person(self):
-        pass
-
-
-# Тестирование класса
-my_pers = Person('Test_pers', race_id = 2)
-# Тест печати класса
-my_pers.print()
-print("=============================")
-print("Повышение")
-print("=============================")
-my_pers.add_experience(100)
-my_pers.up_agility()
-my_pers.print()
-
-# Тест методов
-# Тест def get_level(self, experience)
-# print(my_pers.get_level(0))     # Lvl = 1
-# print(my_pers.get_level(11))    # Lvl = 3
-# print(my_pers.get_level(199))   # Lvl = 8
-# print(my_pers.get_level(1000))  # Lvl = 20
-# print(my_pers.get_level(35000)) # Lvl = 50
